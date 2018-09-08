@@ -1,0 +1,60 @@
+.baloon{
+    width: 380px;
+    height: 526px;
+    border-radius: 7px;
+}
+
+.header{
+    display: flex;
+    padding: 2%;
+    background-color: #ff8663;
+}
+
+.header__address-text{
+    color: #fff;
+}
+
+.header__close{
+    border: none;
+    outline: none;
+}
+
+.feedbacks{
+    outline: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+}
+
+.form__title{
+    color: #ff8663;
+}
+
+.form__input{
+    border-radius: 16px;
+    border: 1px solid #c4c4c4;
+}
+
+.form__name{
+    height: 32px;
+}
+
+.form__title{
+    height: 32px;
+}
+
+.form__text{
+    height: 130px;
+}
+
+.footer__add{
+    border: none;
+    outline: none;
+    width: 87px;
+    height: 30px;
+    background-color: #ff8663;
+}
