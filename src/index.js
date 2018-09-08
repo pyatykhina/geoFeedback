@@ -1,8 +1,11 @@
 import './style/style.scss';
 
 import { mapInit } from './js/ymaps';
+import { addFeedback } from './js/popup';
 
 window.onload = mapInit();
+
+addFeedback();
 
 /* var map = new Map();
 
