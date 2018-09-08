@@ -43,6 +43,8 @@ function mapInit() {
             );
         });*/
 
+        var placemarksArray = [];
+
         myMap.events.add('click', e => {
             var coords = e.get('coords');
             var placemark;
@@ -72,6 +74,7 @@ function mapInit() {
                             '</div>'
             });
             myMap.geoObjects.add(placemark);
+            placemarksArray.push(placemark);
         });
 
         var clusterer = new ymaps.Clusterer({
@@ -80,6 +83,7 @@ function mapInit() {
             openBalloonOnClick: false
         });
 
+        clusterer.add(placemarksArray);
         myMap.geoObjects.add(clusterer);
     });
 }
