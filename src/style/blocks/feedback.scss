@@ -10,7 +10,6 @@ ul{
 }
 
 .feedback{
-    display: flex;
     flex-direction: column;
     padding-left: 10%;
     padding-right: 10%;
@@ -23,7 +22,7 @@ ul{
     justify-content: flex-start;
     color: #7b7b7b;
     flex-direction: row;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     align-items: flex-end;
 }
 
