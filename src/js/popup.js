@@ -1,9 +1,9 @@
-var inputName = document.querySelector('.form__name');
-var inputPlace = document.querySelector('.form__place');
-var inputText = document.querySelector('.form__text');
-var addButton = document.querySelector('.footer__add');
-
 function addFeedback() {
+    var inputName = document.querySelector('.form__name');
+    var inputPlace = document.querySelector('.form__place');
+    var inputText = document.querySelector('.form__text');
+    var addButton = document.querySelector('.footer__add');
+
     addButton.addEventListener('click', () => {
         if (inputName.value && inputPlace.value && inputText.value) {
             var feedbacks = document.querySelector('.feedbacks');
@@ -12,6 +12,7 @@ function addFeedback() {
             var name = document.createElement('div');
             var place = document.createElement('div');
             var text = document.createElement('div');
+            var day = document.createElement('div');
             var firstLine = document.createElement('div');
 
             name.innerHTML = inputName.value;
@@ -20,6 +21,9 @@ function addFeedback() {
 
             var date = new Date();
 
+            day.innerHTML = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
+
+            feedback.classList.add('feedback');
             name.classList.add('feedback__name');
             place.classList.add('feedback__place');
             text.classList.add('feedback__text');
@@ -27,7 +31,7 @@ function addFeedback() {
 
             firstLine.appendChild(name);
             firstLine.appendChild(place);
-            firstLine.appendChild(date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear());
+            firstLine.appendChild(day);
 
             feedback.appendChild(firstLine);
             feedback.appendChild(text);

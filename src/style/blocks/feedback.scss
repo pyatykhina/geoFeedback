@@ -1,0 +1,44 @@
+//feedbacks
+//--feedback
+//----firstLine
+//------name
+//------place
+//------date
+//----text
+ul{
+    list-style-type: none;
+}
+
+.feedback{
+    display: flex;
+    flex-direction: column;
+    padding-left: 10%;
+    padding-right: 10%;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.feedback__firstLine{
+    display: flex;
+    justify-content: flex-start;
+    color: #7b7b7b;
+    flex-direction: row;
+    margin-bottom: 5px;
+    align-items: flex-end;
+}
+
+.feedback__name{
+    color: #4f4f4f;
+    font-weight: bold;
+    margin-right: 8px;
+    font-size: 17px;
+}
+.feedback__place{
+    color: #7b7b7b;
+    margin-right: 8px;
+}
+.feedback__text{
+    color: #4f4f4f;
+    overflow: hidden;
+    font-size: 17px;
+}

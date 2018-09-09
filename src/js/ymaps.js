@@ -1,5 +1,46 @@
 import render from './../templates/popup.hbs';
 
+import { addFeedback } from './../js/popup';
+
+var map = new Map();
+
+/* function geocode(address) {
+    if (map.has(address)) {
+        return map.get(address);
+    }
+
+    map.set(address, ymaps.geocode(address)
+        .then(result => {
+            var points = result.geoObjects.toArray();
+
+            if (points.length) {
+                return points[0].geometry.getCoordinates();
+            }
+        }));
+
+    return map.get(address);
+}*/
+
+
+function getAddress(coords) {
+    ymaps.geocode(coords).then(function (res) {
+        var firstGeoObject = res.geoObjects.get(0);
+
+        myPlacemark.properties
+            .set({
+                // Формируем строку с данными об объекте.
+                iconCaption: [
+                    // Название населенного пункта или вышестоящее административно-территориальное образование.
+                    firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
+                    // Получаем путь до топонима, если метод вернул null, запрашиваем наименование здания.
+                    firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
+                ].filter(Boolean).join(', '),
+                // В качестве контента балуна задаем строку с адресом объекта.
+                balloonContent: firstGeoObject.getAddressLine()
+            });
+    });
+}
+
 function mapInit() {
     ymaps.ready(() => {
         var myMap = new ymaps.Map('map', {
@@ -15,6 +56,7 @@ function mapInit() {
 
         myMap.events.add('click', e => {
             var popup = document.createElement('div');
+            var coords = e.get('coords');
 
             popup.innerHTML = render();
             popup.style.position = 'absolute';
@@ -26,7 +68,6 @@ function mapInit() {
             document.querySelector('.container').appendChild(popup);
 
             /* var placemark;
-            var coords = e.get('coords');
 
             placemark = new ymaps.Placemark(coords, {
                 hintContent: 'адрес',
@@ -35,6 +76,16 @@ function mapInit() {
             myMap.geoObjects.add(placemark);
             placemarksArray.push(placemark);
             clusterer.add(placemark);*/
+
+            // console.log(getAddress(coords));
+            // console.log(ymaps.geocode(coords));
+
+
+            var headerAddress = document.querySelector('.header__address-text');
+
+            headerAddress.innerHTML = ymaps.geocode(coords);
+
+            addFeedback();
         });
 
         var clusterer = new ymaps.Clusterer({            
