@@ -6,7 +6,7 @@ function mapInit() {
             center: [55.76, 37.64], // Москва
             zoom: 13,
             controls: ['zoomControl'],
-            behaviors: ['drag', 'dblClickZoom'/* , 'scrollZoom'*/]
+            behaviors: ['drag', 'dblClickZoom', 'scrollZoom']
         }, { 
             searchControlProvider: 'yandex#search',
             geoObjectOpenBalloonOnClick: false
@@ -33,6 +33,13 @@ function mapInit() {
                 obj.coords = coords;
                 obj.address = res.geoObjects.get(0).properties.get('text');
                 obj.comments = [];
+
+                if (position[1] > window.screen.availHeight - 526) {
+                    position[1] = window.screen.availHeight - 526;
+                }
+                if (position[0] > window.screen.availWidth - 380) {
+                    position[0] = window.screen.availWidth - 760;
+                }
 
                 openPopup(obj, myMap, position, clusterer, '');
             });

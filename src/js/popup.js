@@ -2,20 +2,21 @@ import render from './../templates/popup.hbs';
 
 var feedbacksArray = [];
 
-function openPopup(obj, myMap, position, clusterer, balloonContent) {
+function openPopup(obj, myMap, position, clusterer, hintContent) {
     var popup = document.querySelector('.popup');
 
+    popup.style.display = 'block';
     popup.innerHTML = render();
     popup.style.position = 'absolute';
     popup.style.top = position[1] + 'px'; 
     popup.style.left = position[0] + 'px';
 
-    addFeedback(obj, myMap, position, clusterer, popup, balloonContent);
+    addFeedback(obj, myMap, position, clusterer, popup, hintContent);
 
-    closePopup();
+    closePopup(popup);
 }
 
-function addFeedback(obj, myMap, position, clusterer, popup, balloonContent) {
+function addFeedback(obj, myMap, position, clusterer, popup, hintContent) {
     var inputName = document.querySelector('.form__name');
     var inputPlace = document.querySelector('.form__place');
     var inputText = document.querySelector('.form__text');
@@ -29,7 +30,7 @@ function addFeedback(obj, myMap, position, clusterer, popup, balloonContent) {
     var feedback = document.createElement('li');
 
     feedback.classList.add('feedback');
-    feedback.innerHTML = balloonContent;
+    feedback.innerHTML = hintContent;
     feedbacks.appendChild(feedback);
 
     addButton.addEventListener('click', () => {
@@ -79,25 +80,26 @@ function addFeedback(obj, myMap, position, clusterer, popup, balloonContent) {
 
 function placemarks(obj, myMap, position, clusterer, popup) {     
     var placemark = new ymaps.Placemark(obj.coords, {
-        hintContent: obj.address,
-        balloonContent: popup.children[1].lastChild.innerHTML
+        hintContent: popup.children[1].lastChild.innerHTML,
+        balloonContent: obj.address + popup.children[1].lastChild.innerHTML
     }, {
-        preset: 'islands#darkOrangeDotIcon'
+        preset: 'islands#darkOrangeDotIcon',
+        openHintOnHover: false
     });
 
     myMap.geoObjects.add(placemark);
     clusterer.add(placemark);
 
     placemark.events.add('click', () => {
-        openPopup(obj, myMap, position, clusterer, placemark.properties._data.balloonContent);
+        openPopup(obj, myMap, position, clusterer, placemark.properties._data.hintContent);
     })
 }
 
-function closePopup() {
+function closePopup(popup) {
     var closeButton = document.querySelector('.header__close');
-    var popup = document.querySelector('.popup');
 
     closeButton.addEventListener('click', () => {
+        popup.style.display = 'none';
         popup.innerHTML = '';
     })
 }
